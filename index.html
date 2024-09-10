@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .vote-container {
+      margin: 20px;
+    }
+
+    button {
+      padding: 15px 25px;
+      margin: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .agree {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .disagree {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .abstain {
+      background-color: #ff9800;
+      color: white;
+    }
+
+    .success-message {
+      margin-top: 20px;
+      color: green;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ลงมติ</h1>
+  <p>กรุณาเลือกตัวเลือกที่ท่านต้องการ:</p>
+  
+  <div class="vote-container">
+    <button class="agree" onclick="submitVote('เห็นด้วย')">เห็นด้วย</button>
+    <button class="disagree" onclick="submitVote('ไม่เห็นด้วย')">ไม่เห็นด้วย</button>
+    <button class="abstain" onclick="submitVote('งดออกเสียง')">งดออกเสียง</button>
+  </div>
+
+  <p class="success-message">การลงมติของคุณได้ถูกส่งเรียบร้อยแล้ว!</p>
+
+  <script>
+    function submitVote(vote) {
+      const url = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // Replace with your actual Google Apps Script URL
+
+      const data = {
+        vote: vote
+      };
+
+      fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        document.querySelector('.success-message').style.display = 'block';
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
+  </script>
+</body>
+</html>
